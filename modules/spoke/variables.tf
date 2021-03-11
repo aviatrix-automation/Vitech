@@ -38,3 +38,15 @@ variable "instance_size" {
   type        = string
   default     = "t3.large"
 }
+
+variable "encrypt" {
+  description = "Enable encyption on the gateway"
+  type        = bool
+  default     = false
+}
+
+variable "kms_id" {
+  description = "encyption with the specific id"
+  type        = string
+  default     = ""
+}

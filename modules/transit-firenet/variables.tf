@@ -219,13 +219,13 @@ variable "enable_bgp_over_lan" {
 }
 
 variable "encrypt" {
-  description = "Enable BGp over LAN. Creates eth4 for integration with SDWAN for example"
+  description = "Enable encyption on the gateway"
   type        = bool
   default     = false
 }
 
 variable "kms_id" {
-  description = "Enable BGp over LAN. Creates eth4 for integration with SDWAN for example"
+  description = "encyption with the specific id"
   type        = string
   default     = ""
 }

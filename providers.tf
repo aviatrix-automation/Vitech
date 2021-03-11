@@ -1,10 +1,3 @@
-
-# provider "aws" {
-#   region  = local.region
-#   profile = ""
-# }
-
-
 terraform {
   required_version = ">= 0.13"
   required_providers {

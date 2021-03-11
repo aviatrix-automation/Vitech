@@ -11,7 +11,7 @@ module "transit_firenet" {
   account          = "AWS-AVX"
   firewall_image   = "Palo Alto Networks VM-Series Next-Generation Firewall (BYOL)"
   encrypt          = true
-  kms_id           = "bf3c3cbf-bf27-41c7-b390-6197fd7c628e"
+  kms_id           = "01de3b8b-c3dc-4093-bdca-26ffe76b0e9f"
   insane_mode      = true
   prefix           = false
   suffix           = false
@@ -35,6 +35,8 @@ module "spoke" {
   instance_size = "c5n.xlarge"
   cidr          = "172.30.0.128/26"
   ha_cidr       = "172.30.0.192/26"
+  encrypt       = true
+  kms_id        = "01de3b8b-c3dc-4093-bdca-26ffe76b0e9f"
   tags = [
     "test:value1",
     "test2:value2",

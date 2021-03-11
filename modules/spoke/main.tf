@@ -9,9 +9,11 @@ resource "aviatrix_spoke_gateway" "spoke_gateway_aws" {
   subnet       = var.cidr
   ha_subnet    = var.ha_cidr
   #  enable_snat        = false
-  enable_active_mesh = true
-  insane_mode        = true
-  insane_mode_az     = "${var.region}a"
-  ha_insane_mode_az  = "${var.region}b"
-  tag_list           = var.tags
+  enable_active_mesh    = true
+  insane_mode           = true
+  insane_mode_az        = "${var.region}a"
+  ha_insane_mode_az     = "${var.region}b"
+  enable_encrypt_volume = var.encrypt
+  customer_managed_keys = var.kms_id
+  tag_list              = var.tags
 }
