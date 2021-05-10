@@ -102,9 +102,47 @@ resource "aws_s3_bucket_object" "panvm_software" {
 }
 
 
+/*
+################################################################
+ Create the HA S3 bucket and set its folder structure
+ > Needs to be deployed in the same AWS account as the firewalls
+################################################################
+*/
+
+
+resource "aws_s3_bucket" "avtx_panvm_bootstrap_ha" {
+  bucket_prefix = "avtx-panvm-bootstrap-ha"
+  acl           = "private"
+  tags = {
+    Name = "PAN VM Bootstrap"
+  }
+}
+
+resource "aws_s3_bucket_object" "panvm_content_ha" {
+  bucket = aws_s3_bucket.avtx_panvm_bootstrap_ha.id
+  acl    = "private"
+  key    = "content/"
+  source = "/dev/null"
+}
+
+resource "aws_s3_bucket_object" "panvm_license_ha" {
+  bucket = aws_s3_bucket.avtx_panvm_bootstrap_ha.id
+  acl    = "private"
+  key    = "license/"
+  source = "/dev/null"
+}
+
+resource "aws_s3_bucket_object" "panvm_software_ha" {
+  bucket = aws_s3_bucket.avtx_panvm_bootstrap_ha.id
+  acl    = "private"
+  key    = "software/"
+  source = "/dev/null"
+}
+
+
+
 
 resource "aws_s3_bucket_object" "cfg_upload" {
-  #bucket = var.bucket_name
   bucket = aws_s3_bucket.avtx_panvm_bootstrap.id
   key    = "config/init-cfg.txt"
   source = "${path.cwd}/pan-bootstrap-cfg/init-cfg.txt"
@@ -112,7 +150,6 @@ resource "aws_s3_bucket_object" "cfg_upload" {
 }
 
 resource "aws_s3_bucket_object" "bootstrap_upload" {
-  #bucket = var.bucket_name
   bucket = aws_s3_bucket.avtx_panvm_bootstrap.id
   key    = "config/bootstrap.xml"
   source = "${path.cwd}/pan-bootstrap-cfg/bootstrap.xml"
@@ -120,7 +157,6 @@ resource "aws_s3_bucket_object" "bootstrap_upload" {
 }
 
 resource "aws_s3_bucket_object" "bootstrap_upload_auth" {
-  #bucket = var.bucket_name
   bucket = aws_s3_bucket.avtx_panvm_bootstrap.id
   key    = "license/authcodes"
   source = "${path.cwd}/pan-bootstrap-cfg/authcode"
@@ -128,10 +164,40 @@ resource "aws_s3_bucket_object" "bootstrap_upload_auth" {
 }
 
 
+resource "aws_s3_bucket_object" "cfg_upload_ha" {
+  bucket = aws_s3_bucket.avtx_panvm_bootstrap_ha.id
+  key    = "config/init-cfg.txt"
+  source = "${path.cwd}/pan-bootstrap-cfg/init-cfg_ha.txt"
+  etag   = filemd5("${path.cwd}/pan-bootstrap-cfg/init-cfg_ha.txt")
+}
+
+resource "aws_s3_bucket_object" "bootstrap_upload_ha" {
+  bucket = aws_s3_bucket.avtx_panvm_bootstrap_ha.id
+  key    = "config/bootstrap.xml"
+  source = "${path.cwd}/pan-bootstrap-cfg/bootstrap.xml"
+  etag   = filemd5("${path.cwd}/pan-bootstrap-cfg/bootstrap.xml")
+}
+
+resource "aws_s3_bucket_object" "bootstrap_upload_auth_ha" {
+  bucket = aws_s3_bucket.avtx_panvm_bootstrap_ha.id
+  key    = "license/authcodes"
+  source = "${path.cwd}/pan-bootstrap-cfg/authcode"
+  etag   = filemd5("${path.cwd}/pan-bootstrap-cfg/authcode")
+}
+
+
+
+
+
+
+
 output "bootstrap_bucket" {
   value = aws_s3_bucket_object.cfg_upload.bucket
 }
 
+output "bootstrap_bucket_ha" {
+  value = aws_s3_bucket_object.cfg_upload_ha.bucket
+}
 
 
 
