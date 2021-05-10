@@ -104,6 +104,11 @@ variable "bootstrap_bucket_name" {
   default     = null
 }
 
+variable "bootstrap_bucket_name_ha" {
+  description = "The firewall bootstrap ha bucket name"
+  type        = string
+  default     = null
+}
 variable "inspection_enabled" {
   description = "Set to false to disable inspection"
   type        = bool
