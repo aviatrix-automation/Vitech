@@ -1,0 +1,5 @@
+./terraform import "aviatrix_spoke_transit_attachment.spoke_transit_attachment_5" "pacl-spk-gw~client-aviatrix-transit" 
+./terraform import "aviatrix_spoke_transit_attachment.spoke_transit_attachment_6" "bess-spk-gw~client-aviatrix-transit" 
+./terraform import "aviatrix_transit_gateway_peering.transit_gateway_peering_4" "client-aviatrix-transit~vitech-aviatrix-transit" 
+./terraform import "aviatrix_transit_firenet_policy.transit_firenet_policy_2" "client-aviatrix-transit~SPOKE:bess-spk-gw" 
+./terraform import "aviatrix_transit_firenet_policy.transit_firenet_policy_3" "client-aviatrix-transit~SPOKE:pacl-spk-gw" 
