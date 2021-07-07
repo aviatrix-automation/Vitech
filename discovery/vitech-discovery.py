@@ -966,8 +966,8 @@ if __name__ == "__main__":
             if args.switch_traffic:
                 if account['diy_tgw_account']:
                     role_arn = "arn:aws:iam::"+account['diy_tgw_account']+":role/"+account['role_name']
-                    #creds = get_temp_creds_for_account(role_arn)
-                    ec2_resource_main = get_ec2_resource_handler(account['aws_region'])
+                    creds = get_temp_creds_for_account(role_arn)
+                    ec2_resource_main = get_ec2_resource_handler(account['aws_region'],creds)
                     ec2_client_main = ec2_resource_main.meta.client
                 else:
                     ec2_client_main = ec2_client
