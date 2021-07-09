@@ -176,7 +176,7 @@ resource "aws_instance" "fw" {
   instance_initiated_shutdown_behavior = "stop"
   ebs_optimized                        = true
   ami                                  = var.ami
-  instance_type                        = instance_size
+  instance_type                        = var.instance_size
   key_name                             = var.keypair
   monitoring                           = true
   user_data                            = "mgmt-interface-swap=enable"
