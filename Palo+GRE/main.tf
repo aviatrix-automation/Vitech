@@ -81,7 +81,7 @@ resource "aws_subnet" "subnets" {
   cidr_block        = element(var.vpc-subnet-id, count.index)
   availability_zone = element(var.az1-2, count.index)
   tags = {
-    Name = "Firewall-LAN-${count.index + 1}"
+    Name = "Firewall-LAN-${element(var.az, count.index)}"
   }
 }
 
@@ -90,7 +90,7 @@ resource "aws_route_table" "fwrt_lan" {
   count  = var.num
   vpc_id = data.aviatrix_vpc.firenet_vpc.vpc_id
   tags = {
-    Name = "${var.name}-${count.index + 1}-lan-rt"
+    Name = "${var.name}-${element(var.az, count.index)}-lan-rt"
   }
 }
 
@@ -107,7 +107,7 @@ resource "aws_eip" "eip-ut" {
   count = var.num
   vpc   = true
   tags = {
-    Name = "${var.name}-${count.index + 1}-egress-eip"
+    Name = "${var.name}-${element(var.az, count.index)}-egress-eip"
   }
 }
 
@@ -115,7 +115,7 @@ resource "aws_eip" "eip-mgmt" {
   count = var.num
   vpc   = true
   tags = {
-    Name = "${var.name}-${count.index + 1}-management-eip"
+    Name = "${var.name}-${element(var.az, count.index)}-management-eip"
   }
 }
 
@@ -140,9 +140,9 @@ resource "aws_network_interface" "fw-mgmt" {
   security_groups   = [aws_security_group.fw-mgmt.id]
   source_dest_check = true
   private_ips_count = 0
-  description       = "${var.name}-${count.index + 1}-management"
+  description       = "${var.name}-${element(var.az, count.index)}-management"
   tags = {
-    Name = "${var.name}-${count.index + 1}-management"
+    Name = "${var.name}-${element(var.az, count.index)}-management"
   }
 }
 resource "aws_network_interface" "fw-tr" {
@@ -151,9 +151,9 @@ resource "aws_network_interface" "fw-tr" {
   security_groups   = [aws_security_group.fw-lan.id]
   source_dest_check = false
   private_ips_count = 0
-  description       = "${var.name}-${count.index + 1}-lan"
+  description       = "${var.name}-${element(var.az, count.index)}-lan"
   tags = {
-    Name = "${var.name}-${count.index + 1}-lan"
+    Name = "${var.name}-${element(var.az, count.index)}-lan"
   }
 }
 resource "aws_network_interface" "fw-ut" {
@@ -162,9 +162,9 @@ resource "aws_network_interface" "fw-ut" {
   security_groups   = [aws_security_group.fw-egress.id]
   source_dest_check = false
   private_ips_count = 0
-  description       = "${var.name}-${count.index + 1}-egress"
+  description       = "${var.name}-${element(var.az, count.index)}-egress"
   tags = {
-    Name = "${var.name}-${count.index + 1}-egress"
+    Name = "${var.name}-${element(var.az, count.index)}-egress"
   }
 }
 
@@ -211,7 +211,7 @@ resource "aws_instance" "fw" {
   tags = merge(
     var.additional_tags,
     {
-      Name = "${var.name}-${count.index + 1}"
+      Name = "${var.name}-${element(var.az, count.index)}"
     },
   )
 }
