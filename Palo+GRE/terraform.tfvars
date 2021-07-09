@@ -17,6 +17,4 @@ additional_tags = {
     Environment = "Test"
     Product     = "Aviatrix"
 }
-
-
-
+az = ["a","b"]
