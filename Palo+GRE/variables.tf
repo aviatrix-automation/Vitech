@@ -28,3 +28,5 @@ variable "num" {
 variable "vpc-subnet-id" {}
 
 variable "az1-2" {}
+
+variable "az" {}
