@@ -1,0 +1,17 @@
+account_id:
+  - 866159464259
+  - 734006704080
+  - 389180911583
+  - 011005480238
+  - 233011157946
+  - 711946023415
+  - 570441599457
+
+aws_region:
+  - us-east-1
+  - us-west-1
+  - eu-west-2
+  - eu-west-1
+
+defaults:
+  role_name: aviatrix-role-app
